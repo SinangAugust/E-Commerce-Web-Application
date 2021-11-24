@@ -6,13 +6,14 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div>
-      <Header/>
+      <Header />
       <main className="py-3">
         <Container>
+          {/* Try lamangs */}
           <h1>Welcome</h1>
         </Container>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
