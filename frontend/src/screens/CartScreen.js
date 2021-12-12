@@ -8,12 +8,12 @@ import { addToCart, removeFromCart } from '../actions/cartActions'
 function CartScreen ({match, location, history}) {
     const productId = match.params.id
     const qty = location.search ? Number(location.search.split('=')[1]) : 1
-    
+
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
     const {cartItems} = cart
-    
+
 
     useEffect(() =>{
         if(productId){
@@ -21,7 +21,7 @@ function CartScreen ({match, location, history}) {
         }
     }, [dispatch, productId, qty])
 
-    const removeFromCartHandler = () => {
+    const removeFromCartHandler = (id) => {
         dispatch(removeFromCart(id))
     }
 
@@ -60,7 +60,7 @@ function CartScreen ({match, location, history}) {
                                             onChange= {(e)=>dispatch(addToCart(item.product, Number (e.target.value)))}
                                         >
                                             {
-                                                [...Array(product.countInStock).keys()].map((x) => (
+                                                [...Array(item.countInStock).keys()].map((x) => (
                                                     <option key={x+1} value={x+1}>
                                                         {x+1}
                                                     </option>
@@ -80,7 +80,7 @@ function CartScreen ({match, location, history}) {
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
-                        
+
                         ))}
                     </listGroup>
                 )}
@@ -99,8 +99,8 @@ function CartScreen ({match, location, history}) {
                         <Button
                             type='button'
                             className='btn-block'
-                            disabled={cartItems.length === 0}        
-                            onClick={checkoutHandler}              
+                            disabled={cartItems.length === 0}
+                            onClick={checkoutHandler}
                         >
                             Proceed to Checkout
                         </Button>
