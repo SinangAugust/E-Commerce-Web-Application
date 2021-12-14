@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import { listProductDetails } from '../actions/productActions'
 
 function ProductScreen({ match, history }) {
-    const [qty,setQty] = useState (1)
+    const [qty, setQty] = useState(1)
 
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
@@ -18,8 +18,8 @@ function ProductScreen({ match, history }) {
         dispatch(listProductDetails(match.params.id))
     }, [dispatch, match])
 
-    const addToCartHandler = () =>{
-        history.push('/cart/${match.params.id}?qty=${qty}')
+    const addToCartHandler = () => {
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
     }
 
     return (
@@ -82,12 +82,12 @@ function ProductScreen({ match, history }) {
                                                         <Form.Control
                                                             as="select"
                                                             value={qty}
-                                                            onChange= {(e)=> setQty(e.target.value)}
+                                                            onChange={(e) => setQty(e.target.value)}
                                                         >
                                                             {
                                                                 [...Array(product.countInStock).keys()].map((x) => (
-                                                                    <option key={x+1} value={x+1}>
-                                                                        {x+1}
+                                                                    <option key={x + 1} value={x + 1}>
+                                                                        {x + 1}
                                                                     </option>
                                                                 ))
                                                             }
@@ -102,10 +102,10 @@ function ProductScreen({ match, history }) {
                                             <Button
                                                 onClick={addToCartHandler}
                                                 className='btn-block'
-                                                disabled={product.countInStock == 0} 
+                                                disabled={product.countInStock == 0}
                                                 type='button'>
                                                 Add to Cart
-                                                </Button>
+                                            </Button>
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card>
