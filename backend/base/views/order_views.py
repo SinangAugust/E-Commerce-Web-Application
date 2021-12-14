@@ -64,7 +64,3 @@ def addOrderItems(request):
 
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
-
-    serializer = OrderSerializer(order, many=False)
-    return Response(serializer.data)
-
