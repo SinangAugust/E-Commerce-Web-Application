@@ -23,7 +23,7 @@ function OrderScreen({ match }) {
             dispatch(getOrderDetails(orderId))
         }
 
-    }, [order, orderId])
+    }, [dispatch, order, orderId])
 
     return loading ? (
         <Loader/>
