@@ -5,31 +5,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getOrderDetails } from '../actions/orderActions'
+import { useParams } from 'react-router-dom';
 
 function OrderScreen({ match }) {
     const orderId = match.params.id
+
     const dispatch = useDispatch()
 
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, error, loading } = orderDetails
 
-    if(!loading && !error){
+    if (!loading && !error) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
-   
+
 
     useEffect(() => {
-        if(!order || order._id !== Number(orderId)){
+        console.log(orderId)
+        if (!order || order._id !== Number(orderId)) {
             dispatch(getOrderDetails(orderId))
         }
 
     }, [dispatch, order, orderId])
 
     return loading ? (
-        <Loader/>
+        <Loader />
     ) : error ? (
         <Message variant='danger'> {error} </Message>
-    ): (
+    ) : (
         <div>
             <h1>Order: {order._id} </h1>
             <Row>
@@ -38,7 +41,7 @@ function OrderScreen({ match }) {
                         <ListGroup.Item>
                             <h2>Shipping</h2>
                             <p><strong>Name:</strong> {order.user.name}</p>
-                            <p><strong>Email:</strong><a  href={'mailto:${order.user.email}'}> {order.user.name} </a></p>
+                            <p><strong>Email:</strong><a href={'mailto:${order.user.email}'}> {order.user.name} </a></p>
                             href={'mailto:$'}
                             <p>
                                 <strong>Shipping: </strong>
@@ -51,7 +54,7 @@ function OrderScreen({ match }) {
 
                             {order.isDelivered ? (
                                 <Message variant='sucess'>Delivered on {order.deliveredAt}</Message>
-                            ): (
+                            ) : (
                                 <Message variant='warning'>Not Delivered</Message>
                             )}
                         </ListGroup.Item>
@@ -64,7 +67,7 @@ function OrderScreen({ match }) {
                             </p>
                             {order.isPaid ? (
                                 <Message variant='sucess'>Paid on {order.paidAt}</Message>
-                            ): (
+                            ) : (
                                 <Message variant='warning'>Not Paid</Message>
                             )}
 

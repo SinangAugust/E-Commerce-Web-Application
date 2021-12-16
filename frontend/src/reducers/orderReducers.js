@@ -63,7 +63,6 @@ export const orderDetailsReducer = (state = { loading: true, orderItems: [], shi
                 error: action.payload
             }
 
-
         default:
             return state
     }
